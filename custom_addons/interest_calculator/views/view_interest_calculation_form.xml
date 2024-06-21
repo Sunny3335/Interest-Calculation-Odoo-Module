@@ -1,0 +1,97 @@
+<odoo>
+    <!-- Form View -->
+    <record id="view_interest_calculation_form" model="ir.ui.view">
+        <field name="name">interest.calculation.form</field>
+        <field name="model">interest.calculation</field>
+        <field name="arch" type="xml">
+            <form string="Interest Calculation">
+                <group>
+                    <field name="principal_amount" />
+                    <field name="interest_rate" />
+                    <field name="time_period" />
+                    <field name="interest_type" />
+                </group>
+                <group>
+                    <field name="simple_interest" readonly="1" />
+                    <field name="compound_interest" readonly="1" />
+                </group>
+
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_interest_calculation_tree" model="ir.ui.view">
+        <field name="name">interest.calculation.tree</field>
+        <field name="model">interest.calculation</field>
+        <field name="arch" type="xml">
+            <tree string="Interest Calculation">
+                <field name="principal_amount" />
+                <field name="interest_rate" />
+                <field name="time_period" />
+                <field name="interest_type" />
+                <field name="simple_interest" />
+                <field name="compound_interest" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_interest_calculation" model="ir.actions.act_window">
+        <field name="name">Interest Calculations</field>
+        <field name="res_model">interest.calculation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_interest_calculation_root" name="Interest Calculation" sequence="10" />
+    <menuitem id="menu_interest_calculation" name="Calculations" parent="menu_interest_calculation_root" action="action_interest_calculation" />
+
+    <!-- Report Template -->
+    <template id="report_interest_calculation">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <h1>Interest Calculation Report</h1>
+                    <p>
+                        <strong>Principal Amount:</strong>
+                        <t t-esc="doc.principal_amount" />
+                    </p>
+                    <p>
+                        <strong>Interest Rate:</strong>
+                        <t t-esc="doc.interest_rate" />
+                        %
+                    </p>
+                    <p>
+                        <strong>Time Period:</strong>
+                        <t t-esc="doc.time_period" />
+                        years
+                    </p>
+                    <p>
+                        <strong>Interest Type:</strong>
+                        <t t-esc="doc.interest_type" />
+                    </p>
+                    <p>
+                        <strong>Simple Interest:</strong>
+                        <t t-esc="doc.simple_interest" />
+                    </p>
+                    <p>
+                        <strong>Compound Interest:</strong>
+                        <t t-esc="doc.compound_interest" />
+                    </p>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!-- Report Action -->
+    <record id="action_report_interest_calculation" model="ir.actions.report">
+        <field name="name">Interest Calculation Report</field>
+        <field name="model">interest.calculation</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">interest_calculator.report_interest_calculation</field>
+        <field name="print_report_name">'Interest Calculation Report - %s' % (object.id)</field>
+        <field name="binding_model_id" ref="model_interest_calculation" />
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

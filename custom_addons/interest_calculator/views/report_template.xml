@@ -1,0 +1,48 @@
+<odoo>
+  <data>
+    <!-- Report Template -->
+    <template id="report_interest_calculation">
+      <t t-call="web.external_layout">
+        <div class="page">
+          <h2>Interest Calculation Report</h2>
+          <p>
+            <strong>Principal Amount:</strong>
+            <span t-field="o.principal_amount" />
+          </p>
+          <p>
+            <strong>Interest Rate:</strong>
+            <span t-field="o.interest_rate" />
+            %
+          </p>
+          <p>
+            <strong>Time Period:</strong>
+            <span t-field="o.time_period" />
+            years
+          </p>
+          <p>
+            <strong>Interest Type:</strong>
+            <span t-field="o.interest_type" />
+          </p>
+          <p>
+            <strong>Simple Interest:</strong>
+            <span t-field="o.simple_interest" />
+          </p>
+          <p>
+            <strong>Compound Interest:</strong>
+            <span t-field="o.compound_interest" />
+          </p>
+        </div>
+      </t>
+    </template>
+
+    <!-- Report Action -->
+    <record id="report_interest_calculation" model="ir.ui.view">
+      <field name="name">Interest Calculation Report</field>
+      <field name="model">interest.calculation</field>
+      <field name="report_type">qweb-pdf</field>
+      <field name="report_name">interest_calculator.report_interest_calculation</field>
+      <field name="report_file">interest_calculator.report_interest_calculation</field>
+      <field name="print_report_name">'Interest Calculation Report - ' + object.name</field>
+    </record>
+  </data>
+</odoo>
